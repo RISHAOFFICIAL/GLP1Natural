@@ -1,3 +1,8 @@
+'use client';
+
+import { useState } from 'react';
+import { Star } from 'lucide-react';
+import PricingModal from '@/components/PricingModal';
 import MetabolicDashboard from '@/components/MetabolicDashboard';
 import MealMoment from '@/components/MealMoment';
 import FoodScanner from '@/components/FoodScanner';
@@ -8,20 +13,35 @@ import SwapLibrary from '@/components/SwapLibrary';
 import WeaningTimeline from '@/components/WeaningTimeline';
 
 export default function Home() {
+  const [isPricingOpen, setIsPricingOpen] = useState(false);
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <header className="px-6 py-6 flex justify-between items-center border-b border-border/50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="px-6 py-4 flex justify-between items-center border-b border-border/50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-bold text-forest tracking-tight">
             GLP<span className="text-gold">·</span>1 Natural
           </h1>
         </div>
-        <div className="bg-sage/10 px-3 py-1 rounded-full">
-          <span className="text-[10px] font-mono font-bold text-sage uppercase tracking-widest">
-            Wean Naturally
-          </span>
+        
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => setIsPricingOpen(true)}
+            className="flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold px-4 py-2 rounded-full transition-all group"
+          >
+            <Star className="w-4 h-4 fill-gold group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-bold uppercase tracking-widest">Premium</span>
+          </button>
+          
+          <div className="hidden sm:block bg-sage/10 px-3 py-1 rounded-full border border-sage/20">
+            <span className="text-[10px] font-mono font-bold text-sage uppercase tracking-widest">
+              Wean Naturally
+            </span>
+          </div>
         </div>
       </header>
+
+      <PricingModal isOpen={isPricingOpen} onClose={() => setIsPricingOpen(false)} />
 
       <main className="flex-1">
         {/* Hero Section */}
