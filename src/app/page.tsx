@@ -1,3 +1,4 @@
+import MetabolicDashboard from '@/components/MetabolicDashboard';
 import MealMoment from '@/components/MealMoment';
 import FoodScanner from '@/components/FoodScanner';
 import MealBuilder from '@/components/MealBuilder';
@@ -45,6 +46,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Metabolic Dashboard */}
+        <section className="px-6 mb-16">
+          <MetabolicDashboard />
+        </section>
         {/* Meal Moment Widget */}
         <section className="px-6 mb-24">
           <MealMoment />

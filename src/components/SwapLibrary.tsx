@@ -176,7 +176,7 @@ export default function SwapLibrary() {
 
       {/* Ad Placement */}
       <AdBanner slot="swap-library-mid" className="mt-8" />
-
+      
       {/* Custom AI Craving Box */}
       <div className="mt-12 bg-forest p-10 rounded-[3rem] text-center text-cream shadow-xl relative overflow-hidden">
         <div className="relative z-10">
