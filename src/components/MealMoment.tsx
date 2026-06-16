@@ -74,15 +74,15 @@ export default function MealMoment() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl shadow-sm border border-border overflow-hidden">
-      <div className="p-6 pb-4">
-        <h3 className="text-xs font-mono tracking-widest text-gold uppercase mb-4">
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-[2rem] md:rounded-3xl shadow-sm border border-border overflow-hidden">
+      <div className="p-5 md:p-6 pb-4">
+        <h3 className="text-[10px] md:text-xs font-mono tracking-widest text-gold uppercase mb-4">
           Quick Check — Is this ok?
         </h3>
         
         <div 
           ref={scrollRef}
-          className="space-y-4 mb-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"
+          className="space-y-4 mb-4 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"
         >
           {messages.length === 0 && (
             <p className="text-mid text-sm italic">
@@ -102,26 +102,26 @@ export default function MealMoment() {
                 )}
               >
                 <div className={cn(
-                  "px-4 py-3 rounded-2xl max-w-[85%] text-sm",
+                  "px-4 py-3 rounded-2xl max-w-[90%] md:max-w-[85%] text-sm",
                   msg.role === 'user' 
-                    ? "bg-sage text-white rounded-tr-none" 
+                    ? "bg-forest text-white rounded-tr-none" 
                     : "bg-sage-pale text-charcoal rounded-tl-none border border-sage/10"
                 )}>
                   {msg.role === 'assistant' && msg.verdict && (
-                    <div className="flex items-center gap-2 mb-2 font-bold text-xs">
-                      {msg.verdict === 'GREEN' && <CheckCircle2 className="w-4 h-4 text-sage" />}
-                      {msg.verdict === 'YELLOW' && <AlertCircle className="w-4 h-4 text-gold" />}
-                      {msg.verdict === 'RED' && <AlertCircle className="w-4 h-4 text-red-soft" />}
+                    <div className="flex items-center gap-2 mb-2 font-bold text-[10px] md:text-xs">
+                      {msg.verdict === 'GREEN' && <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-sage" />}
+                      {msg.verdict === 'YELLOW' && <AlertCircle className="w-3.5 h-3.5 md:w-4 md:h-4 text-gold" />}
+                      {msg.verdict === 'RED' && <AlertCircle className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-soft" />}
                       <span className={cn(
                         msg.verdict === 'GREEN' && "text-sage",
                         msg.verdict === 'YELLOW' && "text-gold",
                         msg.verdict === 'RED' && "text-red-soft"
                       )}>
-                        GLP-1 {msg.verdict === 'GREEN' ? 'APPROVED' : msg.verdict === 'YELLOW' ? 'PROCEED WITH AWARENESS' : 'BLOCKER'}
+                        GLP-1 {msg.verdict === 'GREEN' ? 'APPROVED' : msg.verdict === 'YELLOW' ? 'AWARENESS' : 'BLOCKER'}
                       </span>
                     </div>
                   )}
-                  <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  <p className="whitespace-pre-wrap leading-relaxed text-xs md:text-sm">{msg.content}</p>
                   
                   {msg.role === 'assistant' && msg.buyIngredients && msg.buyIngredients.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-sage/10 flex flex-wrap gap-2">
@@ -154,24 +154,24 @@ export default function MealMoment() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type here..."
-            className="w-full bg-cream/50 border border-border rounded-2xl py-4 pl-5 pr-14 text-sm focus:outline-none focus:ring-2 focus:ring-sage/20 focus:border-sage transition-all"
+            className="w-full bg-cream/50 border border-border rounded-2xl py-3 md:py-4 pl-4 md:pl-5 pr-12 md:pr-14 text-sm focus:outline-none focus:ring-2 focus:ring-sage/20 focus:border-sage transition-all"
           />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-forest text-white p-2.5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-forest/90 transition-colors"
+            className="absolute right-1.5 md:right-2 top-1/2 -translate-y-1/2 bg-forest text-white p-2 md:p-2.5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-forest/90 transition-colors"
           >
             <Send className="w-4 h-4" />
           </button>
         </form>
       </div>
 
-      <div className="bg-sage-pale/50 px-6 py-4 flex flex-wrap gap-2">
+      <div className="bg-sage-pale/50 px-5 md:px-6 py-3 md:py-4 flex flex-wrap gap-2">
         {EXAMPLES.map((ex, i) => (
           <button
             key={i}
             onClick={() => handleSubmit(undefined, ex)}
-            className="bg-white border border-border hover:border-sage text-[11px] text-mid hover:text-sage px-3 py-1.5 rounded-full transition-all"
+            className="bg-white border border-border hover:border-sage text-[9px] md:text-[11px] text-mid hover:text-sage px-2.5 py-1 md:px-3 md:py-1.5 rounded-full transition-all"
           >
             {ex}
           </button>

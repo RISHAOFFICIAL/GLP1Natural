@@ -26,33 +26,33 @@ export default function ScienceSection() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-20 border-t border-border/50">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+    <div className="w-full max-w-4xl mx-auto py-12 md:py-20 border-t border-border/50 px-4 md:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div>
           <h4 className="text-sm font-mono text-gold uppercase tracking-widest mb-4 font-bold">Deep Dive</h4>
-          <h2 className="text-4xl font-bold text-forest mb-6">The Science of Natural GLP-1</h2>
-          <p className="text-mid leading-relaxed mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-forest mb-6">The Science of Natural GLP-1</h2>
+          <p className="text-mid text-sm md:text-base leading-relaxed mb-8">
             GLP-1 (Glucagon-like peptide-1) is a hormone naturally produced in your small intestine. While medications provide a synthetic version, your body is fully capable of producing its own when given the right metabolic signals.
           </p>
           <div className="space-y-6">
             {points.map((point, i) => (
               <div key={i} className="flex gap-4">
-                <div className="mt-1">{point.icon}</div>
+                <div className="mt-1 flex-shrink-0">{point.icon}</div>
                 <div>
-                  <h3 className="font-bold text-forest mb-1">{point.title}</h3>
-                  <p className="text-sm text-mid leading-relaxed">{point.description}</p>
+                  <h3 className="font-bold text-forest mb-1 text-base md:text-lg">{point.title}</h3>
+                  <p className="text-xs md:text-sm text-mid leading-relaxed">{point.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
         
-        <div className="bg-cream p-8 rounded-[3rem] border border-gold/20 shadow-inner relative">
+        <div className="bg-cream p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-gold/20 shadow-inner relative">
           <div className="absolute -top-6 -right-6 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
           <h3 className="text-xl font-bold text-forest mb-6 text-center italic">The "Red Flag" List</h3>
-          <p className="text-xs text-mid text-center mb-8 uppercase tracking-widest font-bold">Avoid these to protect your L-Cells</p>
+          <p className="text-[10px] md:text-xs text-mid text-center mb-8 uppercase tracking-widest font-bold">Avoid these to protect your L-Cells</p>
           
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {[
               { name: 'Seed Oils', detail: 'Soybean, Canola, Grapeseed' },
               { name: 'HFCS', detail: 'High Fructose Corn Syrup' },
@@ -60,10 +60,10 @@ export default function ScienceSection() {
               { name: 'Emulsifiers', detail: 'Carrageenan, Gums' },
               { name: 'Refined Carbs', detail: 'White Flour, Sugar' }
             ].map((item, i) => (
-              <div key={i} className="flex justify-between items-center p-4 bg-white rounded-2xl border border-border/50">
+              <div key={i} className="flex justify-between items-center p-3 md:p-4 bg-white rounded-2xl border border-border/50">
                 <div>
-                  <span className="font-bold text-forest block">{item.name}</span>
-                  <span className="text-[10px] text-mid uppercase">{item.detail}</span>
+                  <span className="font-bold text-forest text-sm md:text-base block">{item.name}</span>
+                  <span className="text-[9px] md:text-[10px] text-mid uppercase">{item.detail}</span>
                 </div>
                 <div className="w-2 h-2 bg-red-soft rounded-full shadow-[0_0_8px_rgba(232,97,74,0.6)]" />
               </div>
@@ -71,7 +71,7 @@ export default function ScienceSection() {
           </div>
           
           <div className="mt-8 p-4 bg-sage/10 rounded-2xl border border-sage/20 text-center">
-            <p className="text-xs text-sage font-medium italic">
+            <p className="text-[10px] md:text-xs text-sage font-medium italic">
               "Healing your metabolism starts with removing the blockers."
             </p>
           </div>

@@ -118,13 +118,15 @@ export default function MealBuilder() {
     <div className="w-full max-w-4xl mx-auto bg-white rounded-[2rem] shadow-sm border border-border overflow-hidden">
       <div className="flex flex-col md:flex-row">
         {/* Sidebar / Stats */}
-        <div className="w-full md:w-64 bg-cream/30 p-8 border-b md:border-b-0 md:border-r border-border">
-          <div className="mb-8">
-            <h3 className="text-[10px] font-mono tracking-widest text-gold uppercase mb-2">Daily Score</h3>
-            <div className={cn("text-5xl font-bold mb-2 transition-colors", getScoreColor(currentScore))}>
-              {currentScore}
+        <div className="w-full md:w-64 bg-cream/30 p-6 md:p-8 border-b md:border-b-0 md:border-r border-border">
+          <div className="mb-6 md:mb-8 flex md:block justify-between items-end">
+            <div>
+              <h3 className="text-[10px] font-mono tracking-widest text-gold uppercase mb-2">Daily Score</h3>
+              <div className={cn("text-4xl md:text-5xl font-bold mb-2 transition-colors", getScoreColor(currentScore))}>
+                {currentScore}
+              </div>
             </div>
-            <div className={cn("px-3 py-1 rounded-full inline-block text-[10px] font-bold uppercase tracking-wider", getScoreBg(currentScore), getScoreColor(currentScore))}>
+            <div className={cn("px-3 py-1 rounded-full inline-block text-[10px] font-bold uppercase tracking-wider mb-2 md:mb-0", getScoreBg(currentScore), getScoreColor(currentScore))}>
               {currentScore >= 85 ? 'Optimal' : currentScore >= 60 ? 'Fair' : 'Blocker Heavy'}
             </div>
           </div>
@@ -149,15 +151,15 @@ export default function MealBuilder() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-8">
+        <div className="flex-1 p-6 md:p-8">
           {/* Tabs */}
-          <div className="flex gap-2 mb-8 bg-cream/50 p-1.5 rounded-2xl w-fit">
+          <div className="flex gap-2 mb-8 bg-cream/50 p-1.5 rounded-2xl w-full overflow-x-auto custom-scrollbar md:w-fit">
             {(['Breakfast', 'Lunch', 'Dinner', 'Snack'] as MealType[]).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={cn(
-                  "px-4 py-2 rounded-xl text-xs font-bold transition-all",
+                  "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
                   activeTab === tab ? "bg-white text-forest shadow-sm" : "text-mid hover:text-forest"
                 )}
               >

@@ -84,14 +84,14 @@ export default function FoodScanner() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto px-4 md:px-0">
       <AnimatePresence mode="wait">
         {!mode && !result && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-1 xs:grid-cols-2 gap-4"
           >
             <ScannerButton 
               icon={<ImageIcon className="w-6 h-6" />}
@@ -125,7 +125,7 @@ export default function FoodScanner() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-white rounded-3xl p-8 border border-border shadow-sm relative"
+            className="bg-white rounded-[2rem] md:rounded-3xl p-6 md:p-8 border border-border shadow-sm relative"
           >
             <button onClick={reset} className="absolute top-4 right-4 p-2 hover:bg-cream rounded-full transition-colors">
               <X className="w-5 h-5 text-mid" />
@@ -151,19 +151,19 @@ export default function FoodScanner() {
                     <button
                       onClick={handleTextScan}
                       disabled={!textInput.trim()}
-                      className="w-full bg-forest text-white py-4 rounded-2xl font-bold hover:bg-forest/90 transition-colors disabled:opacity-50"
+                      className="w-full bg-forest text-white py-4 rounded-2xl font-bold hover:bg-forest/90 transition-colors disabled:opacity-50 text-sm"
                     >
                       Analyze Text
                     </button>
                   </div>
                 ) : mode === 'camera' ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <Camera className="w-16 h-16 text-gold mb-6" />
-                    <h3 className="text-xl font-bold text-forest mb-2">Camera Integration</h3>
-                    <p className="text-mid text-sm mb-8 max-w-xs">
+                  <div className="flex flex-col items-center justify-center py-8 md:py-12 text-center">
+                    <Camera className="w-12 h-12 md:w-16 md:h-16 text-gold mb-6" />
+                    <h3 className="text-lg md:text-xl font-bold text-forest mb-2">Camera Integration</h3>
+                    <p className="text-mid text-xs md:text-sm mb-8 max-w-xs mx-auto">
                       In a production mobile app, this would open a custom scanning viewfinder.
                     </p>
-                    <div className="flex gap-4 w-full">
+                    <div className="flex flex-col xs:flex-row gap-3 md:gap-4 w-full">
                       <button 
                         onClick={() => { setMode('label'); setTimeout(() => fileInputRef.current?.click(), 100); }}
                         className="flex-1 border border-sage text-sage py-3 rounded-xl text-sm font-bold"
@@ -194,35 +194,35 @@ export default function FoodScanner() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-3xl border border-border shadow-sm overflow-hidden"
+            className="bg-white rounded-[2rem] md:rounded-3xl border border-border shadow-sm overflow-hidden"
           >
             {/* Header Result */}
             <div className={cn(
-              "p-8 text-white",
+              "p-6 md:p-8 text-white",
               result.verdict === 'GREEN' ? "bg-sage" : 
               result.verdict === 'YELLOW' ? "bg-gold" : "bg-red-soft"
             )}>
-              <div className="flex justify-between items-start mb-6">
+              <div className="flex flex-col xs:flex-row justify-between items-start gap-4 mb-6">
                 <div>
-                  <div className="text-xs font-mono tracking-widest uppercase opacity-80 mb-1">Metabolic Verdict</div>
-                  <h2 className="text-3xl font-bold">{result.title}</h2>
+                  <div className="text-[10px] font-mono tracking-widest uppercase opacity-80 mb-1">Metabolic Verdict</div>
+                  <h2 className="text-2xl md:text-3xl font-bold">{result.title}</h2>
                 </div>
-                <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 text-center min-w-[80px]">
+                <div className="bg-white/20 backdrop-blur-md rounded-2xl p-3 md:p-4 text-center min-w-[80px]">
                   <div className="text-[10px] font-mono uppercase opacity-80">Score</div>
-                  <div className="text-2xl font-bold">{result.score}</div>
+                  <div className="text-xl md:text-2xl font-bold">{result.score}</div>
                 </div>
               </div>
-              <p className="text-white/90 leading-relaxed">{result.subtitle}</p>
+              <p className="text-white/90 text-sm md:text-base leading-relaxed">{result.subtitle}</p>
             </div>
 
-            <div className="p-8 space-y-8">
+            <div className="p-6 md:p-8 space-y-8">
               {/* Ingredients */}
               <div>
                 <h4 className="text-xs font-mono tracking-widest text-mid uppercase mb-4">Ingredient Breakdown</h4>
                 <div className="space-y-3">
                   {result.ingredients.map((ing, i) => (
                     <div key={i} className="flex items-start gap-3 bg-cream/50 p-4 rounded-xl border border-border/50">
-                      <span className="text-xl">{ing.status}</span>
+                      <span className="text-lg md:text-xl">{ing.status}</span>
                       <div>
                         <div className="font-bold text-forest text-sm">{ing.name}</div>
                         <div className="text-xs text-mid">{ing.note}</div>
@@ -238,13 +238,13 @@ export default function FoodScanner() {
                   <h4 className="text-xs font-mono tracking-widest text-gold uppercase mb-4">Recommended Swaps</h4>
                   <div className="space-y-4">
                     {result.swaps.map((swap, i) => (
-                      <div key={i} className="bg-sage-pale/50 p-5 rounded-2xl border border-sage/10 relative overflow-hidden">
+                      <div key={i} className="bg-sage-pale/50 p-4 md:p-5 rounded-2xl border border-sage/10 relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
-                        <div className="flex items-center gap-2 text-mid text-xs mb-2 italic">
+                        <div className="flex items-center gap-2 text-mid text-[10px] md:text-xs mb-2 italic">
                           <span>Instead of {swap.avoid}</span>
                           <ArrowRight className="w-3 h-3" />
                         </div>
-                        <div className="font-bold text-forest mb-1">Upgrade to {swap.upgrade}</div>
+                        <div className="font-bold text-forest mb-1 text-sm md:text-base">Upgrade to {swap.upgrade}</div>
                         <p className="text-xs text-mid leading-relaxed">{swap.why}</p>
                       </div>
                     ))}
@@ -253,12 +253,12 @@ export default function FoodScanner() {
               )}
 
               {/* Advice */}
-              <div className="bg-forest text-white p-6 rounded-2xl">
+              <div className="bg-forest text-white p-5 md:p-6 rounded-2xl">
                 <div className="flex items-center gap-2 mb-3">
                   <Sparkles className="w-5 h-5 text-gold" />
                   <span className="font-bold text-sm">Metabolic Pro-Tip</span>
                 </div>
-                <p className="text-sm text-white/90 leading-relaxed">{result.recommendation}</p>
+                <p className="text-xs md:text-sm text-white/90 leading-relaxed">{result.recommendation}</p>
               </div>
 
               <button 
@@ -287,13 +287,13 @@ function ScannerButton({ icon, title, description, onClick }: { icon: any, title
   return (
     <button
       onClick={onClick}
-      className="bg-white p-6 rounded-3xl border border-border shadow-sm hover:border-sage hover:shadow-md transition-all text-left group"
+      className="bg-white p-5 md:p-6 rounded-[1.5rem] md:rounded-3xl border border-border shadow-sm hover:border-sage hover:shadow-md transition-all text-left group"
     >
-      <div className="w-12 h-12 bg-sage-pale rounded-2xl flex items-center justify-center text-sage mb-4 group-hover:bg-sage group-hover:text-white transition-colors">
+      <div className="w-10 h-10 md:w-12 md:h-12 bg-sage-pale rounded-2xl flex items-center justify-center text-sage mb-4 group-hover:bg-sage group-hover:text-white transition-colors">
         {icon}
       </div>
-      <h3 className="font-bold text-forest mb-1">{title}</h3>
-      <p className="text-xs text-mid leading-relaxed">{description}</p>
+      <h3 className="font-bold text-forest mb-1 text-sm md:text-base">{title}</h3>
+      <p className="text-[10px] md:text-xs text-mid leading-relaxed">{description}</p>
     </button>
   );
 }

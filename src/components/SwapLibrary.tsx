@@ -103,7 +103,7 @@ export default function SwapLibrary() {
   );
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-12">
+    <div className="w-full max-w-4xl mx-auto py-12 px-4 md:px-0">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
           <h2 className="text-3xl font-bold text-forest mb-2">Swap Library</h2>
@@ -126,24 +126,24 @@ export default function SwapLibrary() {
         {filteredSwaps.map((swap, i) => (
           <div 
             key={i} 
-            className={`bg-white border transition-all duration-300 rounded-[2rem] overflow-hidden ${expandedIndex === i ? 'border-sage shadow-lg' : 'border-border hover:border-sage/50 shadow-sm'}`}
+            className={`bg-white border transition-all duration-300 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden ${expandedIndex === i ? 'border-sage shadow-lg' : 'border-border hover:border-sage/50 shadow-sm'}`}
           >
             <button 
               onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
-              className="w-full p-6 flex items-center justify-between"
+              className="w-full p-5 md:p-6 flex items-center justify-between"
             >
               <div className="flex items-center gap-4 text-left">
                 <div className="flex flex-col">
                   <span className="text-[10px] font-mono font-bold text-red-soft line-through decoration-red-soft/50 uppercase tracking-widest">{swap.avoid}</span>
-                  <span className="text-lg font-bold text-forest">{swap.upgrade}</span>
+                  <span className="text-base md:text-lg font-bold text-forest">{swap.upgrade}</span>
                 </div>
               </div>
               {expandedIndex === i ? <ChevronUp className="w-5 h-5 text-mid" /> : <ChevronDown className="w-5 h-5 text-mid" />}
             </button>
 
             {expandedIndex === i && (
-              <div className="px-6 pb-6 space-y-6">
-                <div className="p-5 bg-sage-pale/30 rounded-2xl border border-sage/10">
+              <div className="px-5 pb-5 md:px-6 md:pb-6 space-y-6">
+                <div className="p-4 md:p-5 bg-sage-pale/30 rounded-2xl border border-sage/10">
                   <h4 className="text-xs font-bold text-sage uppercase tracking-wider mb-2 flex items-center gap-2">
                     <Info className="w-3 h-3" /> Why it works
                   </h4>
@@ -161,11 +161,11 @@ export default function SwapLibrary() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-border flex justify-between items-center">
+                <div className="pt-4 border-t border-border flex flex-wrap justify-between items-center gap-4">
                   <AmazonButton ingredient={swap.upgrade.split(' ')[0]} />
                   <div className="flex items-center gap-1 text-gold">
                     <Zap className="w-4 h-4 fill-gold" />
-                    <span className="text-xs font-bold uppercase">Natural Boost</span>
+                    <span className="text-[10px] md:text-xs font-bold uppercase">Natural Boost</span>
                   </div>
                 </div>
               </div>
@@ -178,22 +178,22 @@ export default function SwapLibrary() {
       <AdBanner slot="swap-library-mid" className="mt-8" />
       
       {/* Custom AI Craving Box */}
-      <div className="mt-12 bg-forest p-10 rounded-[3rem] text-center text-cream shadow-xl relative overflow-hidden">
+      <div className="mt-12 bg-forest p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] text-center text-cream shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <h3 className="text-2xl font-bold mb-3 font-serif italic text-gold">Have a specific craving?</h3>
-          <p className="text-cream/70 mb-8 max-w-md mx-auto">Our AI can design a custom metabolic swap for anything on your mind.</p>
-          <div className="relative max-w-lg mx-auto">
+          <p className="text-cream/70 mb-8 max-w-md mx-auto text-sm">Our AI can design a custom metabolic swap for anything on your mind.</p>
+          <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
             <input 
               type="text" 
-              placeholder="e.g. 'I'm craving a Reese's Peanut Butter Cup'"
+              placeholder="e.g. 'I'm craving a Reese's...'"
               value={customCraving}
               onChange={(e) => setCustomCraving(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-2xl py-4 px-6 text-cream placeholder:text-cream/40 focus:outline-none focus:ring-2 focus:ring-gold/50"
+              className="flex-1 bg-white/10 border border-white/20 rounded-2xl py-4 px-6 text-cream placeholder:text-cream/40 focus:outline-none focus:ring-2 focus:ring-gold/50 text-sm"
             />
             <button 
               onClick={handleCustomSwap}
               disabled={loading}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-gold text-forest font-bold px-6 py-2 rounded-xl hover:bg-gold/90 transition-all disabled:opacity-50"
+              className="bg-gold text-forest font-bold px-8 py-4 rounded-2xl hover:bg-gold/90 transition-all disabled:opacity-50 text-sm"
             >
               {loading ? 'Thinking...' : 'Swap'}
             </button>
