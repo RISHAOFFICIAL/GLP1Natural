@@ -65,55 +65,55 @@ const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative bg-white w-full max-w-xl rounded-[3rem] shadow-2xl overflow-hidden border border-gold/20"
+            className="relative bg-white w-full max-w-xl rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-hidden border border-gold/20 max-h-[90vh] overflow-y-auto"
           >
             {/* Close Button */}
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full hover:bg-cream/50 transition-colors z-20"
+              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full hover:bg-cream/50 transition-colors z-20"
             >
               <X className="w-5 h-5 text-forest/40" />
             </button>
 
-            <div className="p-8 md:p-12">
-              <div className="text-center mb-10">
+            <div className="p-6 md:p-12">
+              <div className="text-center mb-8 md:mb-10">
                 <div className="inline-flex items-center gap-2 bg-gold/10 px-3 py-1 rounded-full mb-4">
                   <Star className="w-3 h-3 text-gold fill-gold" />
                   <span className="text-[10px] font-bold text-gold uppercase tracking-widest">Premium Access</span>
                 </div>
-                <h2 className="text-3xl font-bold text-forest mb-3">Unlock Your Metabolism</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-forest mb-3">Unlock Your Metabolism</h2>
                 <p className="text-mid text-sm max-w-xs mx-auto leading-relaxed">
                   Join GLP·1 Natural Premium for science-backed tools to maintain your results forever.
                 </p>
               </div>
 
               {/* Billing Toggle */}
-              <div className="flex justify-center mb-10">
+              <div className="flex justify-center mb-8 md:mb-10">
                 <div className="bg-cream p-1.5 rounded-2xl flex gap-1 border border-border/50">
                   <button 
                     onClick={() => setBillingCycle('monthly')}
-                    className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all ${billingCycle === 'monthly' ? 'bg-white text-forest shadow-sm' : 'text-mid hover:text-forest'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[10px] md:text-xs font-bold transition-all ${billingCycle === 'monthly' ? 'bg-white text-forest shadow-sm' : 'text-mid hover:text-forest'}`}
                   >
                     Monthly
                   </button>
                   <button 
                     onClick={() => setBillingCycle('annual')}
-                    className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${billingCycle === 'annual' ? 'bg-forest text-cream shadow-sm' : 'text-mid hover:text-forest'}`}
+                    className={`px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-[10px] md:text-xs font-bold transition-all flex items-center gap-2 ${billingCycle === 'annual' ? 'bg-forest text-cream shadow-sm' : 'text-mid hover:text-forest'}`}
                   >
                     Annual
-                    <span className="text-[8px] bg-gold text-forest px-1.5 py-0.5 rounded-full">Best Value</span>
+                    <span className="text-[8px] bg-gold text-forest px-1.5 py-0.5 rounded-full hidden xs:inline">Best Value</span>
                   </button>
                 </div>
               </div>
 
               {/* Pricing Display */}
-              <div className="text-center mb-10">
+              <div className="text-center mb-8 md:mb-10">
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-5xl font-bold text-forest tracking-tighter">{currentPlan.price}</span>
-                  <span className="text-lg text-mid font-medium">{currentPlan.period}</span>
+                  <span className="text-4xl md:text-5xl font-bold text-forest tracking-tighter">{currentPlan.price}</span>
+                  <span className="text-base md:text-lg text-mid font-medium">{currentPlan.period}</span>
                 </div>
                 {billingCycle === 'annual' && (
-                  <p className="text-gold text-xs font-bold mt-2 uppercase tracking-wide">
+                  <p className="text-gold text-[10px] md:text-xs font-bold mt-2 uppercase tracking-wide">
                     {plans.annual.savings} compared to monthly
                   </p>
                 )}

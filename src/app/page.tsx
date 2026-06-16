@@ -45,16 +45,16 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="px-6 pt-16 md:pt-24 pb-12 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-7xl font-bold text-forest mb-8 leading-[1.05]">
-            Your body already makes <br />
+        <section className="px-4 md:px-6 pt-12 md:pt-24 pb-12 max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-7xl font-bold text-forest mb-6 md:mb-8 leading-[1.1] md:leading-[1.05]">
+            Your body already makes <br className="hidden md:block" />
             <span className="italic text-gold font-serif">its own GLP-1.</span>
           </h2>
-          <p className="text-lg md:text-2xl text-mid max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-base md:text-2xl text-mid max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed">
             Feed it the right way and you'll never need a prescription to maintain your results.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-mid uppercase tracking-widest">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-[10px] md:text-xs font-bold text-mid uppercase tracking-widest">
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-gold rounded-full" />
               Science-backed
@@ -67,20 +67,20 @@ export default function Home() {
         </section>
 
         {/* Metabolic Dashboard */}
-        <section className="px-6 mb-16">
+        <section className="px-4 md:px-6 mb-12 md:mb-16">
           <MetabolicDashboard />
         </section>
         {/* Meal Moment Widget */}
-        <section className="px-6 mb-24">
+        <section className="px-4 md:px-6 mb-20 md:mb-24">
           <MealMoment />
         </section>
 
         {/* Daily Meal Builder Section */}
-        <section id="builder" className="px-6 mb-32">
-          <div className="text-center mb-12">
-            <h3 className="text-xs font-mono tracking-widest text-gold uppercase mb-4 font-bold">Meal Planning</h3>
-            <h2 className="text-3xl md:text-5xl font-bold text-forest mb-4">Daily Meal Builder</h2>
-            <p className="text-mid max-w-lg mx-auto text-lg">
+        <section id="builder" className="px-4 md:px-6 mb-24 md:mb-32">
+          <div className="text-center mb-10 md:mb-12">
+            <h3 className="text-[10px] md:text-xs font-mono tracking-widest text-gold uppercase mb-3 md:mb-4 font-bold">Meal Planning</h3>
+            <h2 className="text-2xl md:text-5xl font-bold text-forest mb-3 md:mb-4">Daily Meal Builder</h2>
+            <p className="text-mid max-w-lg mx-auto text-base md:text-lg">
               Select your foods and let our AI calculate your GLP-1 score and metabolic sequence.
             </p>
           </div>
@@ -88,16 +88,16 @@ export default function Home() {
         </section>
 
         {/* Protocol Section */}
-        <section className="px-6 bg-cream/20 py-24 mb-32">
+        <section className="px-4 md:px-6 bg-cream/20 py-16 md:py-24 mb-24 md:mb-32">
           <ProtocolSection />
         </section>
 
         {/* Food Scanner Section */}
-        <section className="px-6 max-w-4xl mx-auto mb-32">
-          <div className="text-center mb-12">
-            <h3 className="text-xs font-mono tracking-widest text-gold uppercase mb-4 font-bold">Core Feature</h3>
-            <h2 className="text-3xl md:text-5xl font-bold text-forest mb-4">Metabolic Scanner</h2>
-            <p className="text-mid max-w-lg mx-auto text-lg">
+        <section className="px-4 md:px-6 max-w-4xl mx-auto mb-24 md:mb-32">
+          <div className="text-center mb-10 md:mb-12">
+            <h3 className="text-[10px] md:text-xs font-mono tracking-widest text-gold uppercase mb-3 md:mb-4 font-bold">Core Feature</h3>
+            <h2 className="text-2xl md:text-5xl font-bold text-forest mb-3 md:mb-4">Metabolic Scanner</h2>
+            <p className="text-mid max-w-lg mx-auto text-base md:text-lg">
               Scan labels, plates, or ingredient lists to reveal GLP-1 blockers and natural swaps.
             </p>
           </div>
@@ -105,17 +105,17 @@ export default function Home() {
         </section>
 
         {/* Swap Library Section */}
-        <section className="px-6 mb-32">
+        <section className="px-4 md:px-6 mb-24 md:mb-32">
           <SwapLibrary />
         </section>
 
         {/* Science Section */}
-        <section className="px-6 bg-white">
+        <section className="px-4 md:px-6 bg-white">
           <ScienceSection />
         </section>
 
         {/* Weaning Timeline Section */}
-        <section className="px-6">
+        <section className="px-4 md:px-6">
           <WeaningTimeline />
         </section>
       </main>

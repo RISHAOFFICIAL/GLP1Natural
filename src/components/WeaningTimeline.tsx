@@ -26,34 +26,34 @@ export default function WeaningTimeline() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-20 border-t border-border/50">
-      <div className="text-center mb-16">
+    <div className="w-full max-w-4xl mx-auto py-12 md:py-20 border-t border-border/50 px-4 md:px-0">
+      <div className="text-center mb-12 md:mb-16">
         <h4 className="text-sm font-mono text-gold uppercase tracking-widest mb-4 font-bold">The Journey</h4>
-        <h2 className="text-4xl font-bold text-forest mb-6">Transition Roadmap</h2>
-        <p className="text-mid max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-forest mb-6">Transition Roadmap</h2>
+        <p className="text-mid text-sm md:text-base max-w-2xl mx-auto">
           Moving off GLP-1 medication is a process, not an event. Use this timeline to coordinate your lifestyle changes with your clinical reduction.
         </p>
       </div>
 
       <div className="space-y-12">
         {phases.map((phase, i) => (
-          <div key={i} className="flex flex-col md:flex-row gap-8 items-start">
+          <div key={i} className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
             <div className="flex-shrink-0 w-full md:w-48">
-              <div className="bg-white border border-border p-6 rounded-3xl text-center shadow-sm">
-                <span className="text-xs font-mono font-bold text-gold uppercase block mb-1">{phase.time}</span>
-                <h3 className="text-xl font-bold text-forest">{phase.title}</h3>
+              <div className="bg-white border border-border p-5 md:p-6 rounded-2xl md:rounded-3xl text-center shadow-sm">
+                <span className="text-[10px] md:text-xs font-mono font-bold text-gold uppercase block mb-1">{phase.time}</span>
+                <h3 className="text-lg md:text-xl font-bold text-forest">{phase.title}</h3>
               </div>
             </div>
             
-            <div className="flex-1 bg-cream/30 border border-border p-8 rounded-[2rem] relative">
+            <div className="flex-1 bg-cream/30 border border-border p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] relative w-full">
               <div className="flex gap-4 mb-6">
-                <div className="mt-1">{phase.icon}</div>
-                <p className="text-mid leading-relaxed">{phase.description}</p>
+                <div className="mt-1 flex-shrink-0">{phase.icon}</div>
+                <p className="text-mid text-sm md:text-base leading-relaxed">{phase.description}</p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                 {phase.tasks.map((task, j) => (
-                  <div key={j} className="flex items-center gap-2 text-xs font-bold text-forest bg-white/50 p-3 rounded-xl border border-border/50">
+                  <div key={j} className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-forest bg-white/50 p-3 rounded-xl border border-border/50">
                     <div className="w-1.5 h-1.5 bg-sage rounded-full" />
                     {task}
                   </div>
@@ -68,12 +68,12 @@ export default function WeaningTimeline() {
         ))}
       </div>
       
-      <div className="mt-20 p-8 bg-sage text-white rounded-[2.5rem] text-center">
+      <div className="mt-16 md:mt-20 p-8 md:p-12 bg-forest text-white rounded-[2rem] md:rounded-[2.5rem] text-center">
         <h3 className="text-2xl font-bold mb-4">Ready to start?</h3>
-        <p className="text-white/80 mb-8 max-w-xl mx-auto">
+        <p className="text-white/80 text-sm md:text-base mb-8 max-w-xl mx-auto">
           Consult with your prescribing physician before making any changes to your medication schedule. Our tools are designed to support your lifestyle during this transition.
         </p>
-        <button className="bg-gold hover:bg-gold/90 text-forest font-bold px-8 py-4 rounded-2xl transition-all">
+        <button className="bg-gold hover:bg-gold/90 text-forest font-bold px-8 py-4 rounded-2xl transition-all text-sm">
           Download Clinical PDF Guide
         </button>
       </div>

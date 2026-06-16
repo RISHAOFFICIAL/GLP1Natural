@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -22,6 +22,13 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   title: "GLP-1 Natural",
   description: "Naturally stimulate your own GLP-1 hormone production through food.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
