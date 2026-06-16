@@ -1,4 +1,5 @@
 import { ShieldCheck, Zap, Activity, Brain } from 'lucide-react';
+import AdBanner from './AdBanner';
 
 export default function ScienceSection() {
   const points = [
@@ -75,6 +76,11 @@ export default function ScienceSection() {
             </p>
           </div>
         </div>
+      </div>
+      
+      {/* Ad Placement */}
+      <div className="mt-20">
+        <AdBanner slot="science-footer" />
       </div>
     </div>
   );
