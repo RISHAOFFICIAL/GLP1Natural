@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
+import { getUserStreak } from '@/lib/user-stats';
 
 export async function GET() {
   try {
@@ -30,6 +31,10 @@ export async function GET() {
       }
       throw profileError;
     }
+
+    // Ensure streak is accurate
+    const activeStreak = await getUserStreak(user.id);
+    profile.current_streak = activeStreak;
 
     return NextResponse.json(profile);
   } catch (error) {
