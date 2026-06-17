@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Sparkles, ChevronRight, Check, Plus, Trash2 } from 'lucide-react';
 import AmazonButton from './AmazonButton';
+import { generateGroceryCartLink } from '@/lib/amazon';
 
 interface FoodItem {
   id: string;
@@ -60,6 +61,11 @@ export default function MealBuilder() {
       return { ...prev, [meal]: [...current, foodId] };
     });
   };
+
+  const selectedFoodNames = useMemo(() => {
+    const allSelectedIds = Object.values(selections).flat();
+    return allSelectedIds.map(id => FOOD_LIBRARY.find(f => f.id === id)?.name).filter(Boolean) as string[];
+  }, [selections]);
 
   const currentScore = useMemo(() => {
     const allSelectedIds = Object.values(selections).flat();
@@ -144,6 +150,18 @@ export default function MealBuilder() {
               )}
               AI Meal Plan
             </button>
+            <a
+              href={generateGroceryCartLink(selectedFoodNames)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "w-full bg-gold text-white py-4 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-gold/90 transition-all shadow-sm",
+                selectedFoodNames.length === 0 && "opacity-50 pointer-events-none"
+              )}
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Shop Ingredients
+            </a>
             <p className="text-[10px] text-mid text-center italic">
               Claude will sequence your picks for maximum GLP-1 impact.
             </p>
@@ -230,12 +248,23 @@ export default function MealBuilder() {
                 <h3 className="text-xl font-bold text-forest mb-1">Your Metabolic Roadmap</h3>
                 <p className="text-xs text-mid">Personalized sequencing for your selected foods.</p>
               </div>
-              <button 
-                onClick={() => setAiPlan(null)}
-                className="text-mid hover:text-forest"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
+              <div className="flex gap-2">
+                <a
+                  href={generateGroceryCartLink(selectedFoodNames)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gold text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-gold/90 transition-all shadow-sm"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  Shop Plan
+                </a>
+                <button 
+                  onClick={() => setAiPlan(null)}
+                  className="text-mid hover:text-forest p-2"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
             </div>
             <div className="prose prose-sm max-w-none prose-p:text-mid prose-headings:text-forest prose-strong:text-forest whitespace-pre-wrap bg-white p-6 rounded-2xl border border-sage/10">
               {aiPlan}

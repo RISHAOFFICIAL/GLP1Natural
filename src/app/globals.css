@@ -16,6 +16,7 @@
 }
 
 @theme {
+  --breakpoint-xs: 480px;
   --color-sage: var(--sage);
   --color-sage-light: var(--sage-light);
   --color-sage-pale: var(--sage-pale);

@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <header className="px-6 py-4 flex justify-between items-center border-b border-border/50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="px-4 md:px-6 py-4 flex justify-between items-center border-b border-border/50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-bold text-forest tracking-tight">
             GLP<span className="text-gold">·</span>1 Natural
@@ -45,8 +45,8 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="px-4 md:px-6 pt-12 md:pt-24 pb-12 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-7xl font-bold text-forest mb-6 md:mb-8 leading-[1.1] md:leading-[1.05]">
+        <section className="px-4 md:px-6 pt-12 md:pt-24 pb-12 max-w-4xl mx-auto text-center overflow-hidden">
+          <h2 className="text-3xl xs:text-4xl md:text-7xl font-bold text-forest mb-6 md:mb-8 leading-[1.1] md:leading-[1.05]">
             Your body already makes <br className="hidden md:block" />
             <span className="italic text-gold font-serif">its own GLP-1.</span>
           </h2>
