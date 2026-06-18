@@ -118,24 +118,29 @@ export async function updateUserStats(score?: number, type: string = 'scan-food'
   }
 
   // Check achievements
-  await checkAchievements(user.id, {
+  const newAchievements = await checkAchievements(user.id, {
     total_logs: newTotalLogs,
     streak: newStreak,
     best_glp1_score: newBestGLP1Score
   });
 
-  return { success: true, stats: { total_logs: newTotalLogs, streak: newStreak, best_score: newBestGLP1Score } };
+  return { 
+    success: true, 
+    stats: { total_logs: newTotalLogs, streak: newStreak, best_score: newBestGLP1Score },
+    newAchievements
+  };
 }
 
 async function checkAchievements(userId: string, stats: { total_logs: number, streak: number, best_glp1_score: number }) {
   const supabase = await createClient();
+  const newlyEarned = [];
 
   // Get all achievements
   const { data: achievements, error: achError } = await supabase
     .from('achievements')
     .select('*');
 
-  if (achError || !achievements) return;
+  if (achError || !achievements) return [];
 
   // Get user's current achievements
   const { data: userAchievements, error: userAchError } = await supabase
@@ -143,7 +148,7 @@ async function checkAchievements(userId: string, stats: { total_logs: number, st
     .select('achievement_id')
     .eq('user_id', userId);
 
-  if (userAchError) return;
+  if (userAchError) return [];
 
   const earnedIds = new Set(userAchievements.map(ua => ua.achievement_id));
 
@@ -160,10 +165,16 @@ async function checkAchievements(userId: string, stats: { total_logs: number, st
     }
 
     if (earned) {
-      await supabase.from('user_achievements').insert({
+      const { error: insertError } = await supabase.from('user_achievements').insert({
         user_id: userId,
         achievement_id: ach.id
       });
+      
+      if (!insertError) {
+        newlyEarned.push(ach);
+      }
     }
   }
+
+  return newlyEarned;
 }

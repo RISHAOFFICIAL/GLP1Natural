@@ -12,7 +12,8 @@ import {
   Award,
   Activity,
   CheckCircle2,
-  Loader2
+  Loader2,
+  Share2
 } from 'lucide-react';
 import { UserProfile, UserAchievement } from '@/types';
 
@@ -25,19 +26,12 @@ const MetabolicDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [profileRes, achRes] = await Promise.all([
-          fetch('/api/user/profile'),
-          fetch('/api/user/achievements')
-        ]);
+        const res = await fetch('/api/user/profile');
         
-        if (profileRes.ok) {
-          const profileData = await profileRes.json();
+        if (res.ok) {
+          const profileData = await res.json();
           setProfile(profileData);
-        }
-        
-        if (achRes.ok) {
-          const achData = await achRes.json();
-          setAchievements(achData.earned || []);
+          setAchievements(profileData.achievements || []);
         }
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -121,13 +115,44 @@ const MetabolicDashboard = () => {
               </div>
 
               {/* Achievements Section */}
-              <div className="bg-white border border-border/30 rounded-2xl p-4 md:p-5 shadow-sm">
-                <h4 className="text-[10px] md:text-[11px] font-bold text-gold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">
-                  <Target className="w-4 h-4" />
-                  Earned Achievements
-                </h4>
-                
-                {achievements.length > 0 ? (
+              <div className="space-y-6">
+                {/* Progress Bar towards next major milestone */}
+                {profile && (
+                  <div className="bg-white border border-border/30 rounded-2xl p-4 md:p-5 shadow-sm">
+                    <div className="flex justify-between items-end mb-3">
+                      <div>
+                        <h4 className="text-[10px] font-bold text-sage uppercase tracking-widest mb-1">Next Milestone</h4>
+                        <p className="text-xs font-bold text-forest">
+                          {profile.total_logs < 10 ? 'Reach 10 Total Logs' : profile.current_streak < 3 ? 'Get a 3-Day Streak' : 'Keep up the momentum!'}
+                        </p>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-mid">
+                        {profile.total_logs < 10 ? `${profile.total_logs}/10` : profile.current_streak < 3 ? `${profile.current_streak}/3` : '100%'}
+                      </span>
+                    </div>
+                    <div className="h-2 bg-cream rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ 
+                          width: profile.total_logs < 10 
+                            ? `${(profile.total_logs / 10) * 100}%` 
+                            : profile.current_streak < 3 
+                              ? `${(profile.current_streak / 3) * 100}%` 
+                              : '100%' 
+                        }}
+                        className="h-full bg-sage"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="bg-white border border-border/30 rounded-2xl p-4 md:p-5 shadow-sm">
+                  <h4 className="text-[10px] md:text-[11px] font-bold text-gold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">
+                    <Target className="w-4 h-4" />
+                    Earned Achievements
+                  </h4>
+                  
+                  {achievements.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {achievements.map((ach, i) => (
                       <motion.div 
@@ -144,8 +169,24 @@ const MetabolicDashboard = () => {
                           <div className="font-bold text-forest text-xs md:text-sm leading-tight">{ach.title}</div>
                           <div className="text-[10px] md:text-[11px] text-mid leading-snug mt-0.5">{ach.description}</div>
                         </div>
-                        <div className="bg-forest/10 p-1 rounded-full">
-                          <CheckCircle2 className="w-3 h-3 md:w-3.5 md:h-3.5 text-forest" />
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="bg-forest/10 p-1 rounded-full">
+                            <CheckCircle2 className="w-3 h-3 md:w-3.5 md:h-3.5 text-forest" />
+                          </div>
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const text = `I just earned the "${ach.title}" achievement on GLP-1 Natural! Naturally stimulating my GLP-1 production.`;
+                              if (navigator.share) {
+                                navigator.share({ title: 'GLP-1 Natural Achievement', text, url: window.location.href });
+                              } else {
+                                alert('Copied to clipboard: ' + text);
+                              }
+                            }}
+                            className="p-1 text-mid hover:text-gold transition-colors"
+                          >
+                            <Share2 className="w-3 h-3" />
+                          </button>
                         </div>
                       </motion.div>
                     ))}

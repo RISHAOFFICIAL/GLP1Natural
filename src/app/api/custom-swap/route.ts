@@ -39,9 +39,9 @@ export async function POST(req: NextRequest) {
     const data = JSON.parse(content);
 
     // Log activity
-    await updateUserStats(undefined, 'custom-swap');
+    const { newAchievements } = await updateUserStats(undefined, 'custom-swap');
 
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, newAchievements });
   } catch (error) {
     console.error('Custom Swap Error:', error);
     return NextResponse.json({ error: 'Failed to generate swap' }, { status: 500 });

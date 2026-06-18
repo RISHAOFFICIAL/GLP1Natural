@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { AchievementProvider } from "@/lib/achievement-context";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -40,13 +41,15 @@ export default function RootLayout({
       className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-cream text-charcoal">
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || 'ca-pub-placeholder'}`}
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
-        {children}
+        <AchievementProvider>
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || 'ca-pub-placeholder'}`}
+            crossOrigin="anonymous"
+            strategy="lazyOnload"
+          />
+          {children}
+        </AchievementProvider>
       </body>
     </html>
   );

@@ -34,9 +34,9 @@ Rules:
     const content = response.content[0].type === 'text' ? response.content[0].text : '';
 
     // Update user stats (just a log)
-    await updateUserStats(undefined, 'meal-plan');
+    const { newAchievements } = await updateUserStats(undefined, 'meal-plan');
 
-    return NextResponse.json({ plan: content });
+    return NextResponse.json({ plan: content, newAchievements });
   } catch (error) {
     console.error('Meal Plan Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

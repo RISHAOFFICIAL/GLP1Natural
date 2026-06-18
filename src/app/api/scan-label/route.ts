@@ -59,9 +59,9 @@ export async function POST(req: Request) {
     const data = JSON.parse(content);
 
     // Update user stats with the score
-    await updateUserStats(data.score, 'scan-label');
+    const { newAchievements } = await updateUserStats(data.score, 'scan-label');
 
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, newAchievements });
   } catch (error) {
     console.error('Scan Label Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
