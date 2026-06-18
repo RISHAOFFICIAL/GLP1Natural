@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
+import { updateUserStats } from '@/lib/user-stats';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
@@ -36,6 +37,9 @@ export async function POST(req: NextRequest) {
 
     const content = response.content[0].type === 'text' ? response.content[0].text : '';
     const data = JSON.parse(content);
+
+    // Log activity
+    await updateUserStats(undefined, 'custom-swap');
 
     return NextResponse.json(data);
   } catch (error) {

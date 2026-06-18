@@ -34,7 +34,7 @@ Rules:
     const content = response.content[0].type === 'text' ? response.content[0].text : '';
 
     // Update user stats (just a log)
-    await updateUserStats();
+    await updateUserStats(undefined, 'meal-plan');
 
     return NextResponse.json({ plan: content });
   } catch (error) {

@@ -1,12 +1,49 @@
 import { createClient } from './supabase-server';
 
-export async function updateUserStats(score?: number) {
+export async function getUserStreak(userId: string): Promise<number> {
+  const supabase = await createClient();
+  
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('current_streak, last_log_date')
+    .eq('id', userId)
+    .single();
+
+  if (error || !profile) return 0;
+
+  const lastLogDate = profile.last_log_date;
+  if (!lastLogDate) return 0;
+
+  const now = new Date();
+  const today = now.toISOString().split('T')[0];
+  
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  // If the last log was today or yesterday, the streak is still active
+  if (lastLogDate === today || lastLogDate === yesterdayStr) {
+    return profile.current_streak || 0;
+  }
+
+  // Otherwise, the streak has broken
+  return 0;
+}
+
+export async function updateUserStats(score?: number, type: string = 'scan-food') {
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
 
   if (authError || !user) {
     return { error: 'Unauthorized' };
   }
+
+  // Create activity log
+  await supabase.from('user_logs').insert({
+    user_id: user.id,
+    log_type: type,
+    score: score || null
+  });
 
   // Get current profile or create it if missing
   let { data: profile, error: profileError } = await supabase

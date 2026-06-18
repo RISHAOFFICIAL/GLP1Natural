@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     const data = JSON.parse(content);
 
     // Update user stats with the score
-    await updateUserStats(data.score);
+    await updateUserStats(data.score, 'scan-label');
 
     return NextResponse.json(data);
   } catch (error) {

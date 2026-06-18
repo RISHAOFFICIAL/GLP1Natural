@@ -36,7 +36,7 @@ Rules:
     const data = JSON.parse(content);
 
     // Update user stats (no score for chat, just a log)
-    await updateUserStats();
+    await updateUserStats(undefined, 'meal-moment');
 
     return NextResponse.json({ 
       verdict: data.verdict.replace('[', '').replace(']', ''), 
