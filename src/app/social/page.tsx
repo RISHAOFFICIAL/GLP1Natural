@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UserProfile } from '@/types';
 import PricingModal from '@/components/PricingModal';
+import ActivityFeed from './ActivityFeed';
 
 export default function SocialPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -136,6 +137,9 @@ export default function SocialPage() {
             Search
           </button>
         </form>
+
+        {/* Activity Feed */}
+        <ActivityFeed />
 
         {/* Tabs */}
         <div className="flex gap-2 mb-8 bg-cream/20 p-1 rounded-2xl border border-border/30">

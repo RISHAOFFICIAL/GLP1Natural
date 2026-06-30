@@ -117,6 +117,56 @@ export async function updateUserStats(score?: number, type: string = 'scan-food'
     return { error: 'Failed to update stats' };
   }
 
+  // --- SOCIAL ACTIVITY LOGGING ---
+  try {
+    const activityInserts = [];
+
+    // 1. First Meal
+    if (newTotalLogs === 1) {
+      activityInserts.push({
+        user_id: user.id,
+        activity_type: 'first_meal',
+        metadata: {}
+      });
+    }
+
+    // 2. Meal Milestones (10, 25, 50, 100)
+    if ([10, 25, 50, 100].includes(newTotalLogs)) {
+      activityInserts.push({
+        user_id: user.id,
+        activity_type: 'meal_milestone',
+        metadata: { meal_count: newTotalLogs }
+      });
+    }
+
+    // 3. Streak Milestones (7, 14, 30, 60, 90, 100)
+    if ([7, 14, 30, 60, 90, 100].includes(newStreak) && newStreak !== profile.current_streak) {
+      activityInserts.push({
+        user_id: user.id,
+        activity_type: 'streak_milestone',
+        metadata: { streak_count: newStreak }
+      });
+    }
+
+    // 4. Score Milestones (80+, 90+, 100)
+    if (score) {
+      if (score === 100 && (profile.best_glp1_score || 0) < 100) {
+        activityInserts.push({ user_id: user.id, activity_type: 'score_milestone', metadata: { score_value: score } });
+      } else if (score >= 90 && (profile.best_glp1_score || 0) < 90) {
+        activityInserts.push({ user_id: user.id, activity_type: 'score_milestone', metadata: { score_value: score } });
+      } else if (score >= 80 && (profile.best_glp1_score || 0) < 80) {
+        activityInserts.push({ user_id: user.id, activity_type: 'score_milestone', metadata: { score_value: score } });
+      }
+    }
+
+    if (activityInserts.length > 0) {
+      await supabase.from('social_activities').insert(activityInserts);
+    }
+  } catch (err) {
+    console.error('Error logging social activity:', err);
+  }
+  // --- END SOCIAL ACTIVITY LOGGING ---
+
   // Check achievements
   const newAchievements = await checkAchievements(user.id, {
     total_logs: newTotalLogs,
@@ -172,6 +222,22 @@ async function checkAchievements(userId: string, stats: { total_logs: number, st
       
       if (!insertError) {
         newlyEarned.push(ach);
+        
+        // --- SOCIAL ACTIVITY LOGGING: Badge Earned ---
+        try {
+          await supabase.from('social_activities').insert({
+            user_id: userId,
+            activity_type: 'badge_earned',
+            metadata: { 
+              badge_name: ach.title, 
+              badge_tier: ach.criteria_type,
+              science_tip: ach.description // Or a specific tip from social-copy
+            }
+          });
+        } catch (err) {
+          console.error('Error logging badge activity:', err);
+        }
+        // --- END SOCIAL ACTIVITY LOGGING ---
       }
     }
   }
