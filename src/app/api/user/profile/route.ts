@@ -36,7 +36,18 @@ export async function GET() {
     const activeStreak = await getUserStreak(user.id);
     profile.current_streak = activeStreak;
 
-    return NextResponse.json(profile);
+    // Fetch achievements
+    const { data: achievements } = await supabase
+      .from('user_achievements')
+      .select('*, achievement:achievements(*)')
+      .eq('user_id', user.id);
+
+    const formattedAchievements = achievements?.map(ua => ({
+      ...ua.achievement,
+      earned_at: ua.earned_at
+    })) || [];
+
+    return NextResponse.json({ ...profile, achievements: formattedAchievements });
   } catch (error) {
     console.error('Profile GET Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

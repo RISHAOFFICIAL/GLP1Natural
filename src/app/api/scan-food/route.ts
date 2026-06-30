@@ -59,9 +59,9 @@ export async function POST(req: Request) {
     const data = JSON.parse(content);
 
     // Update user stats with the score
-    await updateUserStats(data.score, 'scan-food');
+    const { newAchievements } = await updateUserStats(data.score, 'scan-food');
 
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, newAchievements });
   } catch (error) {
     console.error('Scan Food Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

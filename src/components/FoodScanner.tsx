@@ -6,6 +6,7 @@ import { Camera, FileText, Upload, Image as ImageIcon, X, Loader2, CheckCircle2,
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ScanResult } from '@/types';
+import { useAchievements } from '@/lib/achievement-context';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,6 +20,7 @@ export default function FoodScanner() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [textInput, setTextInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { addAchievements } = useAchievements();
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -37,8 +39,11 @@ export default function FoodScanner() {
         body: JSON.stringify({ imageBase64: base64.split(',')[1] }),
       });
 
-      const data = await res.json();
+      const data: ScanResult = await res.json();
       setResult(data);
+      if (data.newAchievements) {
+        addAchievements(data.newAchievements);
+      }
     } catch (error) {
       console.error('Scan error:', error);
     } finally {
@@ -59,8 +64,11 @@ export default function FoodScanner() {
         body: JSON.stringify({ text: textInput }),
       });
 
-      const data = await res.json();
+      const data: ScanResult = await res.json();
       setResult(data);
+      if (data.newAchievements) {
+        addAchievements(data.newAchievements);
+      }
     } catch (error) {
       console.error('Text scan error:', error);
     } finally {

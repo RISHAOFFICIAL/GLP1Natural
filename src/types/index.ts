@@ -17,11 +17,14 @@ export interface ScanResult {
     why: string;
   }[];
   recommendation: string;
+  newAchievements?: Achievement[];
 }
 
 export interface MealMomentResponse {
   verdict: Verdict;
   text: string;
+  buyIngredients: string[];
+  newAchievements?: Achievement[];
 }
 
 export interface UserProfile {
@@ -37,6 +40,7 @@ export interface UserProfile {
   last_log_date: string | null;
   created_at: string;
   updated_at: string;
+  achievements?: UserAchievement[];
 }
 
 export interface Achievement {

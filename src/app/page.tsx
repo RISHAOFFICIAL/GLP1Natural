@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Star } from 'lucide-react';
+import { Star, Users } from 'lucide-react';
+import Link from 'next/link';
 import PricingModal from '@/components/PricingModal';
 import MetabolicDashboard from '@/components/MetabolicDashboard';
 import MealMoment from '@/components/MealMoment';
@@ -25,6 +26,14 @@ export default function Home() {
         </div>
         
         <div className="flex items-center gap-4">
+          <Link 
+            href="/social"
+            className="flex items-center gap-2 bg-sage/10 hover:bg-sage/20 text-sage px-4 py-2 rounded-full transition-all group"
+          >
+            <Users className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-bold uppercase tracking-widest hidden xs:inline">Social</span>
+          </Link>
+          
           <button 
             onClick={() => setIsPricingOpen(true)}
             className="flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold px-4 py-2 rounded-full transition-all group"

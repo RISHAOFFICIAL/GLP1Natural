@@ -6,6 +6,7 @@ import { Send, Sparkles, AlertCircle, CheckCircle2, HelpCircle, ShoppingCart } f
 import AmazonButton from './AmazonButton';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useAchievements } from '@/lib/achievement-context';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -31,6 +32,7 @@ export default function MealMoment() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { addAchievements } = useAchievements();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -66,6 +68,9 @@ export default function MealMoment() {
         buyIngredients: data.buyIngredients || []
       };
       setMessages(prev => [...prev, assistantMsg]);
+      if (data.newAchievements) {
+        addAchievements(data.newAchievements);
+      }
     } catch (error) {
       console.error('Meal Moment error:', error);
     } finally {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp, Zap, Info } from 'lucide-react';
 import AmazonButton from './AmazonButton';
 import AdBanner from './AdBanner';
+import { useAchievements } from '@/lib/achievement-context';
 
 interface Swap {
   avoid: string;
@@ -78,6 +79,7 @@ export default function SwapLibrary() {
   const [customCraving, setCustomCraving] = useState('');
   const [customSwap, setCustomSwap] = useState<{ neuroscience: string, swaps: { name: string, why: string }[] } | null>(null);
   const [loading, setLoading] = useState(false);
+  const { addAchievements } = useAchievements();
 
   const handleCustomSwap = async () => {
     if (!customCraving) return;
@@ -90,6 +92,9 @@ export default function SwapLibrary() {
       });
       const data = await res.json();
       setCustomSwap(data);
+      if (data.newAchievements) {
+        addAchievements(data.newAchievements);
+      }
     } catch (err) {
       console.error(err);
     } finally {

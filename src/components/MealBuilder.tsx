@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Sparkles, ChevronRight, Check, Plus, Trash2 } from 'lucide-react';
 import AmazonButton from './AmazonButton';
 import { generateGroceryCartLink } from '@/lib/amazon';
+import { useAchievements } from '@/lib/achievement-context';
 
 interface FoodItem {
   id: string;
@@ -51,6 +52,7 @@ export default function MealBuilder() {
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPlan, setAiPlan] = useState<string | null>(null);
+  const { addAchievements } = useAchievements();
 
   const toggleFood = (meal: MealType, foodId: string) => {
     setSelections(prev => {
@@ -101,6 +103,9 @@ export default function MealBuilder() {
       });
       const data = await res.json();
       setAiPlan(data.plan);
+      if (data.newAchievements) {
+        addAchievements(data.newAchievements);
+      }
     } catch (err) {
       console.error('Plan generation error:', err);
     } finally {

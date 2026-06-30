@@ -36,12 +36,13 @@ Rules:
     const data = JSON.parse(content);
 
     // Update user stats (no score for chat, just a log)
-    await updateUserStats(undefined, 'meal-moment');
+    const { newAchievements } = await updateUserStats(undefined, 'meal-moment');
 
     return NextResponse.json({ 
       verdict: data.verdict.replace('[', '').replace(']', ''), 
       text: data.feedback + (data.upgradeTip ? '\n\n' + data.upgradeTip : ''),
-      buyIngredients: data.buyIngredients || []
+      buyIngredients: data.buyIngredients || [],
+      newAchievements
     });
   } catch (error) {
     console.error('Meal Moment Error:', error);
